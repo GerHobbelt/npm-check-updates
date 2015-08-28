@@ -1,6 +1,6 @@
 {
   "name": "npm-check-updates",
-  "version": "2.0.0-alpha.7",
+  "version": "2.0.0-alpha.8",
   "author": "Tomas Junnonen <tomas1@gmail.com>",
   "description": "Find newer versions of dependencies than what your package.json allows",
   "keywords": [
@@ -32,15 +32,20 @@
   "homepage": "https://github.com/tjunnone/npm-check-updates",
   "dependencies": {
     "async": "^1.2.0",
+    "bluebird": "^2.9.27",
     "cint": "^8.2.1",
     "closest-package": "^1.0.0",
     "commander": "^2.8.1",
+    "get-stdin-promise": "^0.1.1",
     "lodash": "^3.9.3",
     "npm": "^2.11.0",
     "read-package-json": "^2.0.0",
-    "semver": "^4.3.6"
+    "semver": "^4.3.6",
+    "semver-utils": "metaraine/semver-utils.git#ff978"
   },
   "devDependencies": {
+    "chai": "^3.0.0",
+    "chai-as-promised": "^5.1.0",
     "mocha": "^2.2.5",
     "should": "^6.0.3"
   }
