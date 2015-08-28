@@ -36,9 +36,9 @@
   },
   "homepage": "https://github.com/tjunnone/npm-check-updates",
   "dependencies": {
-    "async": "^1.4.1",
+    "async": "^1.4.2",
     "bluebird": "^2.9.34",
-    "chalk": "^1.1.0",
+    "chalk": "^1.1.1",
     "cint": "^8.2.1",
     "cli-table": "^0.3.1",
     "closest-package": "^1.0.0",
@@ -46,7 +46,7 @@
     "fast-diff": "^1.0.1",
     "get-stdin-promise": "^0.1.1",
     "lodash": "^3.10.1",
-    "npm": "^2.13.4",
+    "npm": "^2.14.1",
     "read-package-json": "^2.0.0",
     "semver": "^5.0.1",
     "semver-utils": "metaraine/semver-utils.git#86ea225"
@@ -55,9 +55,9 @@
     "chai": "^3.2.0",
     "chai-as-promised": "^5.1.0",
     "chai-string": "^1.1.2",
-    "eslint": "^1.1.0",
+    "eslint": "^1.2.1",
     "mocha": "^2.2.5",
-    "should": "^7.0.2",
+    "should": "^7.0.4",
     "spawn-please": "^0.1.0"
   }
 }
