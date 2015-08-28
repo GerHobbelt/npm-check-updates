@@ -27,7 +27,8 @@ describe('npm-check-updates', function () {
         it('should accept stdin', function() {
             return spawn('node', ['bin/npm-check-updates'], '{ "dependencies": { "express": "1" } }')
                 .then(function (output) {
-                    output.trim().should.startWith('express');
+                    output.trim().should.startWith('fetching package.json from stdin...');
+                    output.replace('fetching package.json from stdin...', '').trim().should.startWith('express');
                 });
         });
 
