@@ -1,7 +1,11 @@
 {
   "name": "npm-check-updates",
-  "version": "2.0.0-alpha.8",
+  "version": "2.2.0",
   "author": "Tomas Junnonen <tomas1@gmail.com>",
+  "license": "MIT",
+  "contributors": [
+    "Raine Lourie (http://github.com/metaraine)"
+  ],
   "description": "Find newer versions of dependencies than what your package.json allows",
   "keywords": [
     "npm",
@@ -19,10 +23,11 @@
   "preferGlobal": true,
   "main": "./lib/npm-check-updates",
   "scripts": {
-    "test": "mocha -t 10000"
+    "lint": "eslint bin lib",
+    "test": "npm run lint && mocha"
   },
   "bin": {
-    "npm-check-updates": "./bin/npm-check-updates",
+    "npm-check-updates": "./bin/old-alias",
     "ncu": "./bin/npm-check-updates"
   },
   "repository": {
@@ -31,22 +36,28 @@
   },
   "homepage": "https://github.com/tjunnone/npm-check-updates",
   "dependencies": {
-    "async": "^1.2.0",
-    "bluebird": "^2.9.27",
+    "async": "^1.4.1",
+    "bluebird": "^2.9.34",
+    "chalk": "^1.1.0",
     "cint": "^8.2.1",
+    "cli-table": "^0.3.1",
     "closest-package": "^1.0.0",
     "commander": "^2.8.1",
+    "fast-diff": "^1.0.1",
     "get-stdin-promise": "^0.1.1",
-    "lodash": "^3.9.3",
-    "npm": "^2.11.0",
+    "lodash": "^3.10.1",
+    "npm": "^2.13.4",
     "read-package-json": "^2.0.0",
-    "semver": "^4.3.6",
-    "semver-utils": "metaraine/semver-utils.git#ff978"
+    "semver": "^5.0.1",
+    "semver-utils": "metaraine/semver-utils.git#86ea225"
   },
   "devDependencies": {
-    "chai": "^3.0.0",
+    "chai": "^3.2.0",
     "chai-as-promised": "^5.1.0",
+    "chai-string": "^1.1.2",
+    "eslint": "^1.1.0",
     "mocha": "^2.2.5",
-    "should": "^6.0.3"
+    "should": "^7.0.2",
+    "spawn-please": "^0.1.0"
   }
 }
