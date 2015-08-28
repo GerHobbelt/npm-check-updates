@@ -80,19 +80,19 @@ describe('versionmanager', function () {
 
         it('combined constraints and ranges', function () {
             vm.upgradeDependencyDeclaration("^1.0.0 < 1.2.0", "0.1.0").should.equal("^0.1.0");
-            vm.upgradeDependencyDeclaration("~1.0 < 1.2.0", "0.1.0").should.equal("~0.1.0");
-            vm.upgradeDependencyDeclaration("1.x < 1.2.0", "0.1.0").should.equal("0.1.0");
-            vm.upgradeDependencyDeclaration("1.2.0 < 1.x", "0.1.0").should.equal("0.1.0");
+            vm.upgradeDependencyDeclaration("~1.0 < 1.2.0", "0.1.0").should.equal("^0.1");
+            vm.upgradeDependencyDeclaration("1.x < 1.2.0", "0.1.0").should.equal("0.x");
+            vm.upgradeDependencyDeclaration("1.2.0 < 1.x", "0.1.0").should.equal("<0.x");
 
             vm.upgradeDependencyDeclaration("^1.0.0 < 1.2.0", "1.1.0").should.equal("^1.1.0");
-            vm.upgradeDependencyDeclaration("~1.0 < 1.2.0", "1.1.0").should.equal("~1.1.0");
-            vm.upgradeDependencyDeclaration("1.x < 1.2.0", "1.1.0").should.equal("1.1.0");
-            vm.upgradeDependencyDeclaration("1.2.0 < 1.x", "1.1.0").should.equal("1.1.0");
+            vm.upgradeDependencyDeclaration("~1.0 < 1.2.0", "1.1.0").should.equal("^1.1");
+            vm.upgradeDependencyDeclaration("1.x < 1.2.0", "1.1.0").should.equal("1.x");
+            vm.upgradeDependencyDeclaration("1.2.0 < 1.x", "1.1.0").should.equal("<1.x");
 
             vm.upgradeDependencyDeclaration("^1.0.0 < 1.2.0", "3.1.0").should.equal("^3.1.0");
-            vm.upgradeDependencyDeclaration("~1.0 < 1.2.0", "3.1.0").should.equal("~3.1.0");
-            vm.upgradeDependencyDeclaration("1.x < 1.2.0", "3.1.0").should.equal("3.1.0");
-            vm.upgradeDependencyDeclaration("1.2.0 < 1.x", "3.1.0").should.equal("3.1.0");
+            vm.upgradeDependencyDeclaration("~1.0 < 1.2.0", "3.1.0").should.equal("^3.1");
+            vm.upgradeDependencyDeclaration("1.x < 1.2.0", "3.1.0").should.equal("3.x");
+            vm.upgradeDependencyDeclaration("1.2.0 < 1.x", "3.1.0").should.equal("<3.x");
         });
 
         it('maintain "unclean" semantic versions', function () {
