@@ -1,8 +1,8 @@
 [![npm stable version](https://img.shields.io/npm/v/npm-check-updates.svg?label=stable)](https://npmjs.org/package/npm-check-updates)
-[![Dependency Status](https://david-dm.org/tjunnone/npm-check-updates.svg)](https://david-dm.org/tjunnone/npm-check-updates)
-[![devDependency Status](https://david-dm.org/tjunnone/npm-check-updates/dev-status.svg)](https://david-dm.org/tjunnone/npm-check-updates#info=devDependencies)
-[![Build Status](https://travis-ci.org/tjunnone/npm-check-updates.svg)](https://travis-ci.org/tjunnone/npm-check-updates)
-<!-- [![npm unstable version](https://img.shields.io/github/tag/tjunnone/npm-check-updates.svg?label=unstable)](https://github.com/tjunnone/npm-check-updates/tags) -->
+[![Dependency Status](https://david-dm.org/GerHobbelt/npm-check-updates.svg)](https://david-dm.org/GerHobbelt/npm-check-updates)
+[![devDependency Status](https://david-dm.org/GerHobbelt/npm-check-updates/dev-status.svg)](https://david-dm.org/GerHobbelt/npm-check-updates#info=devDependencies)
+[![Build Status](https://travis-ci.org/GerHobbelt/npm-check-updates.svg)](https://travis-ci.org/GerHobbelt/npm-check-updates)
+<!-- [![npm unstable version](https://img.shields.io/github/tag/GerHobbelt/npm-check-updates.svg?label=unstable)](https://github.com/GerHobbelt/npm-check-updates/tags) -->
 
 npm-check-updates is a command-line tool that allows you to find and save the latest versions of dependencies, regardless of any version constraints in your package.json file (unlike npm itself).
 
