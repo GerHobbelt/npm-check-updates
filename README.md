@@ -1,7 +1,7 @@
-[![npm stable version](https://img.shields.io/npm/v/npm-check-updates.svg?label=stable)](https://npmjs.org/package/npm-check-updates)
-[![Dependency Status](https://david-dm.org/GerHobbelt/npm-check-updates.svg)](https://david-dm.org/GerHobbelt/npm-check-updates)
-[![devDependency Status](https://david-dm.org/GerHobbelt/npm-check-updates/dev-status.svg)](https://david-dm.org/GerHobbelt/npm-check-updates#info=devDependencies)
+[![npm stable version](https://img.shields.io/npm/v/npm-check-updates.svg?label=npm)](https://npmjs.org/package/npm-check-updates)
 [![Build Status](https://travis-ci.org/GerHobbelt/npm-check-updates.svg)](https://travis-ci.org/GerHobbelt/npm-check-updates)
+<!--[![Dependency Status](https://david-dm.org/GerHobbelt/npm-check-updates.svg)](https://david-dm.org/GerHobbelt/npm-check-updates)-->
+<!--[![devDependency Status](https://david-dm.org/GerHobbelt/npm-check-updates/dev-status.svg)](https://david-dm.org/GerHobbelt/npm-check-updates#info=devDependencies)-->
 <!-- [![npm unstable version](https://img.shields.io/github/tag/GerHobbelt/npm-check-updates.svg?label=unstable)](https://github.com/GerHobbelt/npm-check-updates/tags) -->
 
 npm-check-updates is a command-line tool that allows you to upgrade your package.json or bower.json dependencies to the latest versions, regardless of existing version constraints.
@@ -9,6 +9,8 @@ npm-check-updates is a command-line tool that allows you to upgrade your package
 npm-check-updates maintains your existing semantic versioning *policies*, i.e., it will upgrade your `"express": "^4.11.2"` dependency to `"express": "^5.0.0"` when express 5.0.0 is released.
 
 ![npm-check-updates-screenshot](https://cloud.githubusercontent.com/assets/750276/8864534/0788a4d8-3171-11e5-9881-8f7dcf634d14.png)
+
+**![Question](http://www.virginmobileusa.com/_img/2012/icon-questionmark-small.gif) Do you think bower support should be part of npm-check-updates, or a separate package? [We need your input!](https://github.com/tjunnone/npm-check-updates/issues/148)**
 
 Installation
 --------------
