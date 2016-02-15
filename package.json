@@ -52,6 +52,7 @@
     "fast-diff": "^1.0.1",
     "find-up": "^1.1.0",
     "get-stdin": "^5.0.1",
+    "global-npm": "^0.3.0",
     "json-parse-helpfulerror": "^1.0.3",
     "lodash": "^3.10.1",
     "node-alias": "^1.0.3",
