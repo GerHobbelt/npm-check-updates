@@ -57,6 +57,10 @@ describe('versionmanager', function () {
             vm.upgradeDependencyDeclaration("^0.15.7", "0.16.0-beta.3").should.equal("^0.16.0-beta.3");
         });
 
+        it('should replace closed ranges with ^', function () {
+            vm.upgradeDependencyDeclaration("1.0.0 < 1.2.0", "3.1.0").should.equal("^3.1.0");
+        });
+        
         it('should replace multiple ranges with ^', function () {
             vm.upgradeDependencyDeclaration(">1.0 >2.0 < 3.0", "3.1.0").should.equal("^3.1");
         });
@@ -80,6 +84,23 @@ describe('versionmanager', function () {
 
         it('should use the first operator if a comparison has mixed operators', function () {
             vm.upgradeDependencyDeclaration("1.x < 1.*", "3.1.0").should.equal("3.x");
+        });
+
+        it('combined constraints and ranges', function () {
+            vm.upgradeDependencyDeclaration("^1.0.0 < 1.2.0", "0.1.0").should.equal("^0.1.0");
+            vm.upgradeDependencyDeclaration("~1.0 < 1.2.0", "0.1.0").should.equal("^0.1");
+            vm.upgradeDependencyDeclaration("1.x < 1.2.0", "0.1.0").should.equal("0.x");
+            vm.upgradeDependencyDeclaration("1.2.0 < 1.x", "0.1.0").should.equal("<0.x");
+
+            vm.upgradeDependencyDeclaration("^1.0.0 < 1.2.0", "1.1.0").should.equal("^1.1.0");
+            vm.upgradeDependencyDeclaration("~1.0 < 1.2.0", "1.1.0").should.equal("^1.1");
+            vm.upgradeDependencyDeclaration("1.x < 1.2.0", "1.1.0").should.equal("1.x");
+            vm.upgradeDependencyDeclaration("1.2.0 < 1.x", "1.1.0").should.equal("<1.x");
+
+            vm.upgradeDependencyDeclaration("^1.0.0 < 1.2.0", "3.1.0").should.equal("^3.1.0");
+            vm.upgradeDependencyDeclaration("~1.0 < 1.2.0", "3.1.0").should.equal("^3.1");
+            vm.upgradeDependencyDeclaration("1.x < 1.2.0", "3.1.0").should.equal("3.x");
+            vm.upgradeDependencyDeclaration("1.2.0 < 1.x", "3.1.0").should.equal("<3.x");
         });
 
         it('maintain "unclean" semantic versions', function () {

@@ -45,6 +45,7 @@
     "bower": "^1.6.5"
   },
   "dependencies": {
+    "async": "^1.4.2",
     "bluebird": "^3.0.5",
     "chalk": "^1.1.1",
     "cint": "^8.2.1",
