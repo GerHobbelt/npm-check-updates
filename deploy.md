@@ -1,23 +1,10 @@
 # Deployment Instructions
+- Have you created tests?
+- Have you updated the README?
 
-## General
-Add tests
-Update README
-Add and commit all changes
+npm version [minor]
+git push && git push --tags
+npm publish [--tag unstable]
 
-## stable
-Update HISTORY
-npm version minor
-git push
-git push --tags
-npm publish
-
-## unstable
-Update HISTORY
-Manually bump version number in package.json
-git add -A
-git commit -m "vX.X.X"
-git tag vX.X.X-alpha.1
-git push
-git push --tags
-npm publish --tag unstable
+- Update the release history
+https://github.com/tjunnone/npm-check-updates/releases
