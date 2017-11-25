@@ -3,6 +3,7 @@ var chai            = require("chai");
 var fs              = require('fs');
 var spawn           = require('spawn-please')
 var BluebirdPromise = require('bluebird')
+var child           = require('child_process')
 
 chai.use(require("chai-as-promised"));
 chai.use(require('chai-string'))
@@ -92,6 +93,17 @@ describe('npm-check-updates', function () {
                     output.trim().should.startWith('fetching package.json from stdin...');
                     output.replace('fetching package.json from stdin...', '').trim().should.startWith('express');
                 });
+        });
+
+        it('should fall back to package.json search when receiving empty content on stdin', function (done) {
+            var childProcess = child.exec('node bin/ncu', function (error, stdout) {
+                if (error) {
+                    done(error);
+                }
+                stdout.toString().trim().should.match(/^Using .+package.json/);
+                done();
+            });
+            childProcess.stdin.end();
         });
 
         it('should output json with --jsonAll', function() {
@@ -213,12 +225,20 @@ describe('npm-check-updates', function () {
                     pkgData.should.not.have.property('chalk');
                 });
         });
+
         it('should update only packages which have new patch versions', function () {
             return spawn('node', ['bin/ncu', '--jsonUpgraded', '--semverLevel', 'minor'], '{ "dependencies": { "express": "2.4.1", "chalk": "^0.1.0" } }')
                 .then(JSON.parse)
                 .then(function (pkgData) {
                     pkgData.express.should.equal('2.4.7');
                     pkgData.should.not.have.property('chalk');
+                });
+        });
+
+        it('should suppress stdout when --silent is provided', function() {
+            return spawn('node', ['bin/ncu', '--silent'], '{ "dependencies": { "express": "1" } }')
+                .then(function (output) {
+                    output.trim().should.equal('')
                 });
         });
     });
