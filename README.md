@@ -71,39 +71,45 @@ $ ncu '/^(?!gulp-).*$/'
 Options
 --------------
     -d, --dev                check only devDependencies
-    -e, --error-level        set the error-level. 1: exits with error code 0 if no
-                             errors occur. 2: exits with error code 0 if no
-                             packages need updating (useful for continuous
-                             integration)
     -f, --filter             include only package names matching the given string, 
                              comma-delimited list, or regex
     -g, --global             check global packages instead of in the current project
     -h, --help               output usage information
+    -m, --packageManager     npm or bower (default: npm)
+    -p, --prod               check only dependencies (not devDependencies)
+    -r, --registry           specify third-party NPM registry
+    -u, --upgrade            overwrite package file
+    -x, --reject             exclude packages matching the given string, comma-
+                             delimited list, or regex
+    -V, --version            output the version number
+
+Advanced Options
+--------------
+
+Do not use these unless you know what you are doing! Not needed for typical usage.
+
+    -e, --error-level        set the error-level. 1: exits with error code 0 if no
+                             errors occur. 2: exits with error code 0 if no
+                             packages need updating (useful for continuous
+                             integration)
     -j, --jsonAll            output new package file instead of human-readable
                              message
     --jsonUpgraded           output upgraded dependencies in json
-    -l, --loglevel           what level of logs to report: silent, error, warn, info, 
-                             verbose, silly (default: warn)
+    -l, --loglevel           what level of logs to report: silent, error, warn, 
+                             info, verbose, silly (default: warn)
     --packageData            include stringified package file (use stdin instead)
     --packageFile            package file location (default: ./package.json)
     --packageFileDir         use same directory as packageFile to compare against 
                              installed modules. See #201.
-    -m, --packageManager     npm or bower (default: npm)
-    -n, --newest             find the newest versions available instead of the
-                             latest stable versions (alpha release only)
+    -n, --newest             find the newest published versions available instead 
+                             of the latest stable versions
     -o, --optional           check only optionalDependencies
-    -p, --prod               check only dependencies (not devDependencies)
-    -r, --registry           specify third-party NPM registry
     -s, --silent             don't output anything (--loglevel silent)
+    --semverLevel            find the highest version within "major" or "minor"
     -t, --greatest           find the highest versions available instead of the
-                             latest stable versions (alpha release only)
-    -u, --upgrade            overwrite package file
+                             latest stable versions
     -a, --upgradeAll         include even those dependencies whose latest
                              version satisfies the declared semver dependency
-    -x, --reject             exclude packages matching the given string, comma-
-                             delimited list, or regex
-    -V, --version            output the version number
-    --semverLevel            find the highest version within "major" or "minor"
 
 Integration
 --------------
@@ -163,7 +169,7 @@ Known Issues
 
 - `ncu -g` incorrectly report that all packages are up-to-date. This is due to an [issue in npm v3](npm/npm#9564) in which dead symlinks break `npm ls -g`. See [#235](https://github.com/tjunnone/npm-check-updates/issues/235#issuecomment-219314327) for a workaround (TLDR; Delete the dead symlinks). For others, it was an issue with the npm prefix path. Try `PREFIX="/usr/local/" ncu -g` ([#146](https://github.com/tjunnone/npm-check-updates/issues/146#issuecomment-155758303)).
 
-- In some environments (Windows?) npm-check-updates may hang. Run `ncu --loglevel verbose` to see if it is waiting for stdin. If so, try setting the package file explicitly: `ncu -g --packageFile package.json`. See [#136](https://github.com/tjunnone/npm-check-updates/issues/136#issuecomment-155721102).
+- In some environments (Windows) npm-check-updates may hang. Run `ncu --loglevel verbose` to see if it is waiting for stdin. If so, try setting the package file explicitly: `ncu -g --packageFile package.json`. See [#136](https://github.com/tjunnone/npm-check-updates/issues/136#issuecomment-155721102).
 
 - There is an issue with [grunt-shell](https://github.com/sindresorhus/grunt-shell) described in [#119](https://github.com/tjunnone/npm-check-updates/issues/119). TLDR; You have to explicitly specify your package file with `ncu --packageFile package.json`. 
 
@@ -172,11 +178,4 @@ Known Issues
 Problems?
 --------------
 
-Please [file an issue](https://github.com/tjunnone/npm-check-updates/issues) on github! [Contributors](https://github.com/raineorshine/) are responsive and happy to assist.
-
-When filing an issue, please include the dependencies from your package file (or the output from `npm -g ls --depth=0` if using global mode).
-
-Contributing
---------------
-
-npm-check-updates is a great project to contribute to! This is a newbie-friendly project, so don't hesitate to dive in and ask questions! Pick an issue that that you would like to work on and then look at the source code to see if you can figure out what to change. There are several outstanding [bugs](https://github.com/tjunnone/npm-check-updates/issues). There are also many enhancements labeled as [revive-me](https://github.com/tjunnone/npm-check-updates/issues?utf8=%E2%9C%93&q=label%3Arevive-me) that can be re-opened if someone is interested in working on them. 
+Please [file an issue](https://github.com/tjunnone/npm-check-updates/issues) on github!
