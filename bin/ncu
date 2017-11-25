@@ -22,6 +22,7 @@ program
     .option('--jsonUpgraded', 'output upgraded dependencies in json')
     .option('-l, --loglevel <n>', 'what level of logs to report: silent, error, warn, info, verbose, silly (default: warn)')
     .option('-m, --packageManager <name>', 'npm (default) or bower', 'npm')
+    .option('-n, --newest', "find the newest versions available instead of the latest stable versions")
     .option('-o, --optional', 'check only optionalDependencies')
     .option('--packageData', 'include stringified package file (use stdin instead)')
     .option('--packageFile <filename>', 'package file location (default: ./package.json)')
@@ -31,7 +32,8 @@ program
     .option('-t, --greatest', "find the highest versions available instead of the latest stable versions")
     .option('-u, --upgrade', 'overwrite package file')
     .option('-x, --reject <matches>', 'exclude packages matching the given string, comma-delimited list, or regex')
-    .option('-a, --upgradeAll', 'include even those dependencies whose latest version satisfies the declared semver dependency');
+    .option('-a, --upgradeAll', 'include even those dependencies whose latest version satisfies the declared semver dependency')
+    .option('--semverLevel <level>', 'find the highest version within "major" or "minor"');
 
 program.parse(process.argv);
 
