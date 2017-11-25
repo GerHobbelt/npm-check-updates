@@ -1,9 +1,6 @@
-[![npm version](https://badge.fury.io/js/npm-check-updates.svg)](https://badge.fury.io/js/npm-check-updates)
-[![npm stable version](https://img.shields.io/npm/v/npm-check-updates.svg?label=npm)](https://npmjs.org/package/npm-check-updates)
-[![Build Status](https://travis-ci.org/GerHobbelt/npm-check-updates.svg)](https://travis-ci.org/GerHobbelt/npm-check-updates)
-<!--[![Dependency Status](https://david-dm.org/GerHobbelt/npm-check-updates.svg)](https://david-dm.org/GerHobbelt/npm-check-updates)-->
-<!--[![devDependency Status](https://david-dm.org/GerHobbelt/npm-check-updates/dev-status.svg)](https://david-dm.org/GerHobbelt/npm-check-updates#info=devDependencies)-->
-<!-- [![npm unstable version](https://img.shields.io/github/tag/GerHobbelt/npm-check-updates.svg?label=unstable)](https://github.com/GerHobbelt/npm-check-updates/tags) -->
+[![NPM version](https://badge.fury.io/js/npm-check-updates.svg)](http://badge.fury.io/js/npm-check-updates)
+[![Build Status](https://travis-ci.org/tjunnone/npm-check-updates.svg?branch=master)](https://travis-ci.org/GerHobbelt/npm-check-updates)
+[![Dependency Status](https://img.shields.io/david/tjunnone/npm-check-updates.svg)](https://david-dm.org/GerHobbelt/npm-check-updates)
 
 npm-check-updates is a command-line tool that allows you to upgrade your package.json or bower.json dependencies to the latest versions, regardless of existing version constraints.
 
@@ -89,6 +86,8 @@ Options
                              verbose, silly (default: warn)
     --packageData            include stringified package file (use stdin instead)
     --packageFile            package file location (default: ./package.json)
+    --packageFileDir         use same directory as packageFile to compare against 
+                             installed modules. See #201.
     -m, --packageManager     npm or bower (default: npm)
     -n, --newest             find the newest versions available instead of the
                              latest stable versions (alpha release only)
@@ -110,8 +109,8 @@ Integration
 --------------
 The tool allows integration with 3rd party code:
 
-```javascript
-var ncu = require('npm-check-updates');
+```js
+const ncu = require('npm-check-updates');
 
 ncu.run({
     // Always specify the path to the package file
@@ -120,7 +119,7 @@ ncu.run({
     // These are set by default:
     silent: true,
     jsonUpgraded: true
-}).then(function(upgraded) {
+}).then((upgraded) => {
     console.log('dependencies to upgrade:', upgraded);
 });
 ```
