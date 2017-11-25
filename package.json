@@ -30,7 +30,7 @@
   "scripts": {
     "lint": "eslint bin lib",
     "watch": "chokidar \"lib/**/*.js\" -c \"npm run test\"",
-    "test": "npm run lint && mocha && mocha test/individual"
+    "test": "npm run lint ; mocha && mocha test/individual"
   },
   "bin": {
     "npm-check-updates": "./bin/npm-check-updates",
@@ -61,6 +61,7 @@
     "require-dir": "0.3.2",
     "semver": "5.4.1",
     "semver-utils": "1.1.1",
+    "snyk": "1.25.1",
     "spawn-please": "0.3.0",
     "update-notifier": "2.3.0"
   },
