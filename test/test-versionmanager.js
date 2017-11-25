@@ -279,6 +279,12 @@ describe('versionmanager', function () {
                     lodash: '^3.9.3'
                 });
             });
+
+            it('should filter dependencies with wildcards', function () {
+                vm.getCurrentDependencies(deps, {filter: 'm*a'}).should.eql({
+                    mocha: '1.2'
+                });
+            });
         });
 
         describe('reject', function () {
@@ -316,6 +322,13 @@ describe('versionmanager', function () {
                 });
                 vm.getCurrentDependencies(deps, {reject: '/o/'}).should.eql({
                     chalk: '^1.1.0'
+                });
+            });
+
+            it('should reject dependencies with wildcards', function () {
+                vm.getCurrentDependencies(deps, {reject: 'm*a'}).should.eql({
+                    chalk: '^1.1.0',
+                    lodash: '^3.9.3'
                 });
             });
 
