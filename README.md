@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/tjunnone/npm-check-updates.svg?branch=master)](https://travis-ci.org/GerHobbelt/npm-check-updates)
 [![Dependency Status](https://img.shields.io/david/tjunnone/npm-check-updates.svg)](https://david-dm.org/GerHobbelt/npm-check-updates)
 
-### Fork which forces npm v4 or higher to be used.
+### Fork which uses the global `npm` that comes with your `node` install
 
 npm-check-updates is a command-line tool that allows you to upgrade your package.json or bower.json dependencies to the latest versions, regardless of existing version constraints.
 
