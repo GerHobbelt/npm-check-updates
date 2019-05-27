@@ -104,6 +104,8 @@ Do not use these unless you know what you are doing! Not needed for typical usag
     --packageFile            package file location (default: ./package.json)
     --packageFileDir         use same directory as packageFile to compare against
                              installed modules. See #201.
+    --configFilePath         rc config file path (default: ./)
+    --configFileName         rc config file name (default: .ncurc.{json,yml,js})                             
     -n, --newest             find the newest published versions available instead
                              of the latest stable versions
     -o, --optional           check only optionalDependencies
@@ -116,6 +118,12 @@ Do not use these unless you know what you are doing! Not needed for typical usag
                              version satisfies the declared semver dependency
     --removeRange            remove version ranges from the final package version
     --timeout                a global timeout in ms
+
+Configuration Files
+--------------
+Use a `.ncurc.{json,yml,js}` file to specify configuration information.
+You can specify file name and path using `--configFilePath` and `--configFilePath`
+command line options.
 
 Integration
 --------------

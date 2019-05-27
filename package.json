@@ -1,6 +1,6 @@
 {
   "name": "@gerhobbelt/npm-check-updates",
-  "version": "2.13.1-1",
+  "version": "2.14.0-2",
   "author": "Tomas Junnonen <tomas1@gmail.com>",
   "license": "Apache-2.0",
   "contributors": [
@@ -60,6 +60,7 @@
     "lodash": "4.17.4",
     "node-alias": "1.0.4",
     "npmi": "4.0.0",
+    "rc-config-loader": "2.0.1",
     "semver": "5.4.1",
     "semver-utils": "1.1.1",
     "spawn-please": "0.3.0",
