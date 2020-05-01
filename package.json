@@ -32,7 +32,9 @@
     "lint": "eslint bin lib test",
     "watch": "chokidar \"lib/**/*.js\" -c \"npm run test\"",
     "test": "npm run lint && mocha test/individual && mocha",
-    "pub": "npm publish --access public"
+    "pub": "npm publish --access public",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "bin": {
     "npm-check-updates": "./bin/npm-check-updates",
@@ -63,7 +65,8 @@
     "semver": "5.4.1",
     "semver-utils": "1.1.1",
     "spawn-please": "0.3.0",
-    "update-notifier": "2.3.0"
+    "update-notifier": "2.3.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "chai": "4.1.2",
@@ -78,5 +81,6 @@
   "files": [
     "bin",
     "lib"
-  ]
+  ],
+  "snyk": true
 }
