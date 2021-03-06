@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.0
+version: v1.19.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:qs:20170213':
@@ -21,4 +21,8 @@ ignore:
     - npmi > npm > node-gyp > request > qs:
         reason: None given
         expires: '2017-04-02T15:55:36.451Z'
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - node-alias > lodash:
+        patched: '2021-03-06T05:30:06.592Z'
