@@ -1,34 +1,33 @@
-[![npm](https://badge.fury.io/js/npm-check-updates.svg)](http://badge.fury.io/js/npm-check-updates)
+# npm-check-updates
+
+[![npm version](https://img.shields.io/npm/v/npm-check-updates)](https://www.npmjs.com/package/npm-check-updates)
 [![Build Status](https://travis-ci.org/tjunnone/npm-check-updates.svg?branch=master)](https://travis-ci.org/GerHobbelt/npm-check-updates)
 [![Dependency Status](https://img.shields.io/david/tjunnone/npm-check-updates.svg)](https://david-dm.org/GerHobbelt/npm-check-updates)
 
 ### Fork which uses the global `npm` that comes with your `node` install
-
-> v3 released! See the [release notes](https://github.com/tjunnone/npm-check-updates/releases/tag/v3.0.0) for a description of breaking changes.
+[![Coverage Status](https://img.shields.io/coveralls/github/raineorshine/npm-check-updates/main)](https://coveralls.io/github/raineorshine/npm-check-updates?branch=main)
 
 **npm-check-updates upgrades your package.json dependencies to the *latest* versions, ignoring specified versions.**
 
-npm-check-updates maintains your existing semantic versioning *policies*, i.e., it will upgrade `"express": "^4.0.0"` to `"express": "^5.0.0"`.
+- maintains existing semantic versioning *policies*, i.e. `"express": "^4.0.0"` to `"express": "^5.0.0"`.
+- *only* modifies package.json file. Run `npm install` to update your installed packages and package-lock.json.
 
-npm-check-updates *only* modifies your package.json file. Run `npm install` to update your installed packages and package-lock.json.
+![npm-check-updates-screenshot](https://github.com/raineorshine/npm-check-updates/blob/main/.github/screenshot.png?raw=true)
 
-![npm-check-updates-screenshot](https://github.com/tjunnone/npm-check-updates/blob/master/.github/screenshot.png?raw=true)
-
-- Red = major upgrade
+- Red = major upgrade (and all [major version zero](https://semver.org/#spec-item-4))
 - Cyan = minor upgrade
 - Green = patch upgrade
 
 You may also want to consider [npm-check](https://github.com/dylang/npm-check). Similar purpose, different features.
 
-Installation
---------------
+## Installation
 
 ```sh
 npm install -g npm-check-updates
 ```
 
-Usage
---------------
+## Usage
+
 Show any new dependencies for the project in the current directory:
 
 ```sh
@@ -64,93 +63,192 @@ $ npm install      # update installed packages and package-lock.json
 Check global packages:
 
 ```sh
-$ ncu -g           # add -u to get a one-line command for upgrading
+ncu -g
 ```
 
-You can include or exclude specific packages using the `--filter` and `--reject` options. They accept strings, comma-delimited lists, or regular expressions:
+Filter packages using the `--filter` option or adding additional cli arguments. You can exclude specific packages with the `--reject` option or prefixing a filter with `!`. Supports strings, wildcards, globs, comma-or-space-delimited lists, and regular expressions:
 
 ```sh
-# match mocha and should packages exactly
-$ ncu mocha             # shorthand for ncu -f mocha (or --filter)
-$ ncu one, two, three
+# upgrade only mocha
+ncu mocha
+ncu -f mocha
+ncu --filter mocha
 
-# exclude packages
-$ ncu -x nodemon        # shorthand for ncu --reject nodemon
+# upgrade packages that start with "react-"
+ncu react-*
+ncu "/^react-.*$/"
 
-# match packages that start with "gulp-" using regex
-$ ncu '/^gulp-.*$/'
+# upgrade everything except nodemon
+ncu \!nodemon
+ncu -x nodemon
+ncu --reject nodemon
 
-# match packages that do not start with "gulp-". Note: single quotes are required
-# here to avoid inadvertent bash parsing
-$ ncu '/^(?!gulp-).*$/'
+# upgrade only chalk, mocha, and react
+ncu chalk mocha react
+ncu chalk, mocha, react
+ncu -f "chalk mocha react"
+
+# upgrade packages that do not start with "react-".
+ncu \!react-*
+ncu '/^(?!react-).*$/' # mac/linux
+ncu "/^(?!react-).*$/" # windows
 ```
 
-Options
---------------
-    -d, --dev                check only devDependencies
+## How dependency updates are determined
 
-    --configFilePath         rc config file path (default: ./)
-    --configFileName         rc config file name (default: .ncurc.{json,yml,js})                             
-    --dep                    check only a specific section(s) of dependencies:
-                             prod|dev|peer|optional|bundle (comma-delimited)
-    -e, --error-level        set the error-level. 1: exits with error code 0 if no
-                             errors occur. 2: exits with error code 0 if no
-                             packages need updating (useful for continuous
-                             integration)
-    -f, --filter             include only package names matching the given string,
-                             comma-delimited list, or regex
-    -g, --global             check global packages instead of in the current project
-    -i, --interactive        Enable interactive prompts for each dependency
-    -j, --jsonAll            output new package file instead of human-readable
-                             message
-    --jsonUpgraded           output upgraded dependencies in json
-    -l, --loglevel           what level of logs to report: silent, error, warn,
-                             info, verbose, silly (default: warn)
-    -p, --packageManager     npm or bower (default: npm)
-    -m, --minimal            do not upgrade to newer versions that are already
-                             satisfied by the existing version range (v2 behavior).
-    -n, --newest             find the newest published versions available instead
-                             of the latest stable versions
-    --packageData            include stringified package file (use stdin instead)
-    --packageFile            package file location (default: ./package.json)
-    --packageFileDir         use same directory as packageFile to compare against
-                             installed modules. See #201.
-    --pre                    include -alpha, -beta, -rc. Default: 0. Default 
-                             with --newest and --greatest: 1.
-    -r, --registry           specify third-party NPM registry
-    -s, --silent             don't output anything (--loglevel silent)
-    --semverLevel            find the highest version within "major" or "minor"
-    -t, --greatest           find the highest versions available instead of the
-                             latest stable versions
-    --removeRange            remove version ranges from the final package version
-    --timeout                a global timeout in ms
-    -u, --upgrade            overwrite package file
-    -x, --reject             exclude packages matching the given string, comma-
-                             delimited list, or regex
-
-How dependency updates are determined
---------------
-
-- Direct dependencies will be increased to the latest stable version:
+- Direct dependencies are updated to the latest stable version:
   - `2.0.1` → `2.2.0`
   - `1.2` → `1.3`
   - `0.1.0` → `1.0.1`
-  - with `--semverLevel major`
-    - `0.1.0` → `0.2.1`
-  - with `--semverLevel minor`
-    - `0.1.0` → `0.1.2`
--  Semantic versioning policies for levels are maintained while satisfying the latest version:
+- Range operators are preserved and the version is updated:
   - `^1.2.0` → `^2.0.0`
   - `1.x` → `2.x`
-- "Any version" is maintained:
-  - `*` → `*`
-- "Greater than" is maintained:
   - `>0.2.0` → `>0.3.0`
-- Closed ranges are replaced with a wildcard:
+- "Less than" is replaced with a wildcard:
+  - `<2.0.0` → `^3.0.0`
   - `1.0.0 < 2.0.0` → `^3.0.0`
+- "Any version" is preserved:
+  - `*` → `*`
+- Prerelease and deprecated versions are ignored by default.
+  - Use `--pre` to include prerelease versions (e.g. `alpha`, `beta`, `build1235`)
+  - Use `--deprecated` to include deprecated versions
+- With `--target minor`, only update patch and minor:
+  - `0.1.0` → `0.2.1`
+- With `--target patch`, only update patch:
+  - `0.1.0` → `0.1.2`
 
-Configuration Files
---------------
+## Options
+
+```text
+--color                      Force color in terminal
+--concurrency <n>            Max number of concurrent HTTP requests to
+                             registry. (default: 8)
+--configFileName <filename>  Config file name (default: .ncurc.{json,yml,js})
+--configFilePath <path>      Directory of .ncurc config file (default:
+                             directory of `packageFile`).
+--cwd <path>                 Working directory in which npm will be executed.
+--deep                       Run recursively in current working directory.
+                             Alias of (--packageFile '**/package.json').
+--dep <value>                Check one or more sections of dependencies only:
+                             dev, optional, peer, prod, bundle
+                             (comma-delimited).
+--deprecated                 Include deprecated packages.
+--doctor                     Iteratively installs upgrades and runs tests to
+                             identify breaking upgrades. Run "ncu --doctor"
+                             for detailed help. Add "-u" to execute.
+--enginesNode                Include only packages that satisfy engines.node
+                             as specified in the package file.
+-e, --errorLevel <n>         Set the error level. 1: exits with error code 0
+                             if no errors occur. 2: exits with error code 0
+                             if no packages need updating (useful for
+                             continuous integration). (default: 1)
+-f, --filter <matches>       Include only package names matching the given
+                             string, wildcard, glob, comma-or-space-delimited
+                             list, or /regex/.
+--filterVersion <matches>    Filter on package version using
+                             comma-or-space-delimited list, or /regex/.
+--format <value>             Enable additional output data, string or
+                             comma-delimited list: ownerChanged, repo.
+                             ownerChanged: shows if the package owner changed
+                             between versions. repo: infers and displays
+                             links to source code repository. (default: [])
+-g, --global                 Check global packages instead of in the current
+                             project.
+--greatest                   DEPRECATED. Renamed to "--target greatest".
+-i, --interactive            Enable interactive prompts for each dependency;
+                             implies -u unless one of the json options are
+                             set,
+-j, --jsonAll                Output new package file instead of
+                             human-readable message.
+--jsonDeps                   Like `jsonAll` but only lists `dependencies`,
+                             `devDependencies`, `optionalDependencies`, etc
+                             of the new package data.
+--jsonUpgraded               Output upgraded dependencies in json.
+-l, --loglevel <n>           Amount to log: silent, error, minimal, warn,
+                             info, verbose, silly. (default: "warn")
+--mergeConfig                Merges nested configs with the root config file
+                             for --deep or --packageFile options (default:
+                             false)').
+-m, --minimal                Do not upgrade newer versions that are already
+                             satisfied by the version range according to
+                             semver.
+-n, --newest                 DEPRECATED. Renamed to "--target newest".
+-o, --ownerChanged           DEPRECATED. Renamed to "--format ownerChanged".
+--packageData <value>        Package file data (you can also use stdin).
+--packageFile <path|glob>    Package file(s) location (default:
+                             ./package.json).
+-p, --packageManager <name>  npm, yarn (default: "npm")
+--peer                       Check peer dependencies of installed packages
+                             and filter updates to compatible versions. Run
+                             "ncu --help --peer" for details.
+--pre <n>                    Include -alpha, -beta, -rc. (default: 0; default
+                             with --newest and --greatest: 1).
+--prefix <path>              Current working directory of npm.
+-r, --registry <url>         Third-party npm registry.
+-x, --reject <matches>       Exclude packages matching the given string,
+                             wildcard, glob, comma-or-space-delimited list,
+                             or /regex/.
+--rejectVersion <matches>    Exclude package.json versions using
+                             comma-or-space-delimited list, or /regex/.
+--removeRange                Remove version ranges from the final package
+                             version.
+--semverLevel <value>        DEPRECATED. Renamed to --target.
+-s, --silent                 Don't output anything (--loglevel silent).
+-t, --target <value>         Target version to upgrade to: latest, newest,
+                             greatest, minor, patch. Run "ncu --help
+                             --target" for details.` (default: "latest")
+--timeout <ms>               Global timeout in milliseconds. (default: no
+                             global timeout and 30 seconds per
+                             npm-registery-fetch).
+-u, --upgrade                Overwrite package file with upgraded versions
+                             instead of just outputting to console.
+-V, --version                output the version number
+-h, --help                   display help for command
+```
+
+## Doctor Mode
+
+Usage: `ncu --doctor [-u] [options]`
+
+Iteratively installs upgrades and runs tests to identify breaking upgrades. Add `-u` to execute (modifies your package file, lock file, and node_modules).
+
+To be more precise:
+
+1. Runs `npm install` and `npm test` to ensure tests are currently passing.
+2. Runs `ncu -u` to optimistically upgrade all dependencies.
+3. If tests pass, hurray!
+4. If tests fail, restores package file and lock file.
+5. For each dependency, install upgrade and run tests.
+6. When the breaking upgrade is found, saves partially upgraded package.json (not including the breaking upgrade) and exits.
+
+Example:
+
+```sh
+$ ncu --doctor -u
+npm install
+npm run test
+ncu -u
+npm install
+npm run test
+Failing tests found:
+/projects/myproject/test.js:13
+  throw new Error('Test failed!')
+  ^
+Now let's identify the culprit, shall we?
+Restoring package.json
+Restoring package-lock.json
+npm install
+npm install --no-save react@16.0.0
+npm run test
+  ✓ react 15.0.0 → 16.0.0
+npm install --no-save react-redux@7.0.0
+npm run test
+  ✗ react-redux 6.0.0 → 7.0.0
+Saving partially upgraded package.json
+```
+
+## Configuration Files
+
 Use a `.ncurc.{json,yml,js}` file to specify configuration information.
 You can specify file name and path using `--configFileName` and `--configFilePath`
 command line options.
@@ -168,33 +266,33 @@ For example, `.ncurc.json`:
 }
 ```
 
-Module Use
---------------
-npm-check-updates can be required:
+## Module/Programmatic Usage
+
+npm-check-updates can be required as a module:
 
 ```js
-const ncu = require('npm-check-updates');
+const ncu = require('npm-check-updates')
 
-ncu.run({
-    // Any command-line option can be specified here.
-    // These are set by default:
-    jsonUpgraded: true,
-    packageManager: 'npm',
-    silent: true
-}).then((upgraded) => {
-    console.log('dependencies to upgrade:', upgraded);
-});
+(async () => {
+
+  const upgraded = await ncu.run({
+    // Pass any cli option
+    packageFile: '../package.json',
+    upgrade: true,
+    // Defaults:
+    // jsonUpgraded: true,
+    // silent: true,
+  }))
+
+  console.log(upgraded) // { "mypackage": "^2.0.0", ... }
+
+})()
 ```
 
-Known Issues
---------------
+## Known Issues
 
-- Windows: If npm-check-updates hangs, run `ncu --loglevel verbose` to see if it is waiting for stdin. If so, try setting the package file explicitly: `ncu -g --packageFile package.json`. See [#136](https://github.com/tjunnone/npm-check-updates/issues/136#issuecomment-155721102).
+- Windows: If npm-check-updates hangs, try setting the package file explicitly: `ncu --packageFile package.json`. You can run `ncu --loglevel verbose` to confirm that it was incorrectly waiting for stdin. See [#136](https://github.com/raineorshine/npm-check-updates/issues/136#issuecomment-155721102).
 
-Also search the [issues page](https://github.com/tjunnone/npm-check-updates/issues).
+## Problems?
 
-
-Problems?
---------------
-
-Please [file an issue](https://github.com/tjunnone/npm-check-updates/issues)! But always [search existing issues](https://github.com/tjunnone/npm-check-updates/issues?utf8=%E2%9C%93&q=is%3Aissue) first!
+[File an issue](https://github.com/raineorshine/npm-check-updates/issues). Please [search existing issues](https://github.com/raineorshine/npm-check-updates/issues?utf8=%E2%9C%93&q=is%3Aissue) first.
